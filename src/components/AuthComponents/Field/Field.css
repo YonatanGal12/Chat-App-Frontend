@@ -1,0 +1,47 @@
+.field-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 2px;
+
+    max-width: auto;
+    max-height: auto;
+
+    width: 105%;
+
+
+}
+
+.label-container{
+    width: 100%;
+    text-align: left;
+}
+
+.input-container{
+    width: 100%;
+}
+label{
+    text-align: left;
+    color: white;
+    font-size: 1.5rem;
+}
+
+input{
+    font-size: 1.2rem;
+    color: white;
+
+    border: 3px solid rgb(147, 147, 147);
+    border-radius: 10px;
+
+    width: 100%;
+
+    padding: 4px 10px;
+
+    background: linear-gradient(145deg,rgb(39, 34, 44),rgb(45, 43, 49));
+}
+
+input:focus{
+    outline: none;
+    border: 5px solid rgb(108, 7, 175);
+}
