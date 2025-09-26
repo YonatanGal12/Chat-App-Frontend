@@ -27,7 +27,7 @@ label{
     font-size: 1.5rem;
 }
 
-input{
+input, select{
     font-size: 1.2rem;
     color: white;
 
@@ -38,10 +38,15 @@ input{
 
     padding: 4px 10px;
 
-    background: linear-gradient(145deg,rgb(39, 34, 44),rgb(45, 43, 49));
+    background: transparent;
 }
 
-input:focus{
+input:focus, select:focus{
     outline: none;
-    border: 5px solid rgb(108, 7, 175);
+    border: 5px solid var(--main-color);
 }
+
+option{
+    color: black;
+}
+

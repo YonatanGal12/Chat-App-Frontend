@@ -1,11 +1,12 @@
 import './App.css';
-import AuthForm from './components/AuthComponents/AuthForm/AuthForm';
+import AuthForm from './components/AuthComponents/AuthComponents/AuthForm/AuthForm';
+import ChatContainer from './components/ChatComponents/ChatContainer/ChatContainer';
 
 function App() {
 
   return (
     <>
-      <AuthForm></AuthForm>
+      <ChatContainer></ChatContainer>
     </>
   )
 }

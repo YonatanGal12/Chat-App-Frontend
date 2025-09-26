@@ -1,7 +1,7 @@
 import './AuthForm.css';
 import LoginForm from '../LoginForm/LoginForm';
 import SignUpForm from '../SignUpForm/SignUpForm';
-import { type AuthPhase } from '../../../types';
+import { type AuthPhase } from '../../../../types';
 import { useState } from 'react';
 import axios from 'axios';
 
@@ -37,6 +37,7 @@ function AuthForm()
             .catch(error => {
                 console.error('Error fetching data:', error);
             })
+            
     }
 
     return (

@@ -1,5 +1,5 @@
 .sign-up-btn{
-    background-color: rgb(108, 7, 175);
+    background-color: var(--main-color);
     color: white;
     font-size: 1rem;
     
@@ -11,7 +11,7 @@
 }
 
 .sign-up-btn:hover{
-    background-color: rgb(124, 8, 202);
+    background-color: var(--hover-color);
     color: white;
 
     transform: translateY(-2px);
@@ -22,7 +22,7 @@
     background-color: transparent;
     border: none;
     font-size: 1rem ;
-    color: rgb(108, 7, 175);
+    color: var(--main-color);
 
     border-radius: 10px;
     width: 105%;
@@ -30,6 +30,6 @@
 }
 
 .go-to-login-btn:hover{
-    color: rgb(129, 10, 207);
+    color: var(--hover-color);
     background-color: rgb(71, 63, 79);
 }

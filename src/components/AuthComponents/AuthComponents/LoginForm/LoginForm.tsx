@@ -1,6 +1,6 @@
 import './LoginForm.css'
 import Field from '../Field/Field';
-import type { AuthPhase } from '../../../types';
+import type { AuthPhase } from '../../../../types';
 
 type LoginFormProps = {
     setUsername: (username: string) => void,

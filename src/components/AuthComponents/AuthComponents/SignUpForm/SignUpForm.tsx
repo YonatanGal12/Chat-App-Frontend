@@ -1,6 +1,6 @@
 import './SignUpForm.css';
-import { type AuthPhase } from '../../../types';
-import Field from '../Field/Field';
+import { type AuthPhase } from '../../../../types';
+import Field from '../../AuthComponents/Field/Field';
 
 type SignUpFormProps = {
     setUsername: (username: string) => void,
@@ -9,8 +9,6 @@ type SignUpFormProps = {
     setPhoneNumber: (phoneNumber: string) => void,
     logIn: () => void,
     setAuthPhase: (phase: AuthPhase) => void,
-    isPasswordVisible: boolean,
-    setIsPasswordVisible: () => void
 }
 
 function SignUpForm(props: SignUpFormProps)

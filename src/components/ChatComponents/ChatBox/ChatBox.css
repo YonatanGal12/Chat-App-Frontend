@@ -1,0 +1,30 @@
+.chatbox-container{
+    border: 2px solid var(--main-color);
+    border-radius: 20px;
+    width: 75%;
+    height: 100%;
+
+    
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+    align-items: center;
+}
+
+.messages-container{
+    border-radius: 20px;
+
+    width: 100%;
+    height: 100%;
+
+    overflow-y: auto;
+
+    padding: 20px;
+
+    display: flex;
+    flex-direction: column-reverse;
+}   
+
+.messages-container::-webkit-scrollbar{
+    display: none;
+}

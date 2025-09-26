@@ -1,5 +1,5 @@
 .login-btn{
-    background-color: rgb(108, 7, 175);
+    background-color: var(--main-color);
     color: white;
 
     border: none;
@@ -12,7 +12,7 @@
 }
 
 .login-btn:hover{
-    background-color: rgb(124, 8, 202);
+    background-color: var(--hover-color);
     color: white;
 
     transform: translateY(-2px);
@@ -23,18 +23,19 @@
     background-color: transparent;
     border: none;
     font-size: 1rem ;
-    color: rgb(108, 7, 175);
+    color: var(--main-color);
 
     width: 90%;
     padding: 5px;
 }
 
 .go-to-sign-up-btn:hover{
-    color: rgb(129, 10, 207);
+    color: var(--hover-color);
     background-color: rgb(71, 63, 79);
 }
 
 h1{
     font-size: 3rem;
-    color: rgb(108, 7, 175);
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: var(--main-color);
 }

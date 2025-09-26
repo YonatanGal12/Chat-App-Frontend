@@ -9,7 +9,7 @@
     flex-direction: column;
     gap: 20px;
 
-    background: radial-gradient(circle at center, rgb(21, 73, 187), rgb(51, 8, 144), rgb(85, 18, 209), rgb(143, 2, 250));
+    background: radial-gradient(circle at center, rgb(3, 190, 200), rgb(1, 91, 95));
 }
 .form-container{
 
@@ -29,10 +29,10 @@
     border: 1px solid black;
     border-radius: 8px;
 
-    box-shadow: 10px 0px 50px #7504de,
-                0px 10px 50px #7504de,
-                -10px 0px 50px #7504de,
-                0px -10px 50px #7504de;
+    box-shadow: 10px 0px 50px var(--main-color),
+                0px 10px 50px var(--main-color),
+                -10px 0px 50px var(--main-color),
+                0px -10px 50px var(--main-color);
 ;
 }
 

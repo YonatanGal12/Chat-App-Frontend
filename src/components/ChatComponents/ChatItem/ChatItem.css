@@ -1,0 +1,16 @@
+.chat-item{
+    border-radius: 20px;
+
+    display: flex;
+}
+
+.chat-item:hover{
+    background-color: var(--main-color);
+    cursor: pointer;
+}
+
+.chat-details-container{
+    display: flex;
+    justify-content: left;
+    align-items: center;
+}
