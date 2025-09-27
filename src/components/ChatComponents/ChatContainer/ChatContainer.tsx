@@ -3,9 +3,12 @@ import ChatsList from '../ChatsList/ChatsList';
 import ChatBox from '../ChatBox/ChatBox';
 import { useSocket } from '../../../hooks/useSocket';
 import { createContext } from 'react';
-import { type ChatMessage } from '../../../types/types';
+import { type ChatMessage, type AllUsersContextType } from '../../../types/chatTypes';
+
 
 export const HandleSendMessageContext = createContext< ((data: Omit<ChatMessage, "isMine">) => void) | undefined>(undefined);
+
+export const AllUsersContext = createContext<AllUsersContextType | null>(null)
 
 function ChatContainer()
 {
@@ -14,12 +17,17 @@ function ChatContainer()
         messages,
         setMessages,
         groupchats,
-        setGroupchats
+        setGroupchats,
+        allUsers,
+        fetchAllUsers,
+        newGroupChatCreated
     } = useSocket();
 
     return(
         <div className='chat-container'>
-            <ChatsList groupchats={groupchats}></ChatsList>
+            <AllUsersContext.Provider value={{allUsers, fetchAllUsers, newGroupChatCreated}}>
+                <ChatsList groupchats={groupchats}></ChatsList>
+            </AllUsersContext.Provider>
             <HandleSendMessageContext.Provider value={handleSendMessage}>
                 <ChatBox></ChatBox>
             </HandleSendMessageContext.Provider>

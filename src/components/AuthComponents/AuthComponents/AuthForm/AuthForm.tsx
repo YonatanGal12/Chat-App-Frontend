@@ -1,9 +1,9 @@
 import './AuthForm.css';
 import LoginForm from '../LoginForm/LoginForm';
 import SignUpForm from '../SignUpForm/SignUpForm';
-import { type AuthPhase } from '../../../../types';
+import { type AuthPhase } from '../../../../types/authTypes';
 import { useState } from 'react';
-import axios from 'axios';
+import ChatContainer from '../../../ChatComponents/ChatContainer/ChatContainer';
 
 function AuthForm()
 {
@@ -14,43 +14,116 @@ function AuthForm()
 
     const [authPhase, setAuthPhase] = useState<AuthPhase>('login');
 
-    type reqBody = {
+    type logInReqBody = {
         userName: string,
         password: string,
     }
 
-    async function onClick()
+    async function logIn() 
     {
-        const body: reqBody = {
+        const body: logInReqBody = {
             userName: username,
             password: password,
+        };
+
+        const res = await fetch("http://localhost:3000/auth/login", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(body) 
+        });
+
+        if (!res.ok) {
+            console.log("Error logging in.");
+            return;
         }
 
-        axios.get("http://localhost:3005/auth/12", {
-            headers: {
-                Authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEyLCJ1c2VyTmFtZSI6IlNoaXIgR2Vyem9uIiwiaWF0IjoxNzU3OTUyNTA5LCJleHAiOjE3NTc5NTYxMDl9.ZoovscB502GmvntPHAj8KfNNvdzagn9C4YWkYQVri90"
-            }
-        })
-            .then(res => {
-                console.log(res.data)
-            })
-            .catch(error => {
-                console.error('Error fetching data:', error);
-            })
-            
+        const data = await res.json();
+        sessionStorage.setItem("accessToken", data.accessToken);
+        setAuthPhase("loggedIn");
     }
+
+    type signUpReqBody = logInReqBody & {
+        email: string,
+        phoneNumber?: string
+    }
+
+    async function signUp()
+    {
+        const body: signUpReqBody = {
+            userName: username,
+            password: password,
+            email: email,
+            ...(phoneNumber && { phoneNumber })
+        }
+
+        const res = await fetch("http://localhost:3000/auth/signUp", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(body)
+        });
+
+        if(!res.ok)
+        {
+            console.log("Error signing up.")
+            return;
+        }
+
+        const data = await res.json();
+        const userName = data.userName;
+        const userId = data.userId;
+        sessionStorage.setItem("accessToken", data.accessToken);
+        setAuthPhase("loggedIn");
+    }
+
+    async function refresh()
+    {
+        const res = await fetch("http://localhost:3000/auth/refresh", {
+            credentials: "include"
+        })
+
+        if (!res.ok) {
+            console.log("Error refreshing token");
+            return;
+        }
+
+        const data = await res.json();
+        sessionStorage.setItem("accessToken", data.accessToken);
+        console.log("Access token refreshed:", data.accessToken);
+    }
+
+
+
+    let whatToShow;
+
+    if(authPhase === "loggedIn")
+    {
+        whatToShow = <ChatContainer/> 
+    }
+    else if(authPhase === "login")
+    {
+        whatToShow = <div className='login-container'>
+                        <div className="form-container">
+                            <LoginForm setUsername={setUsername} setPassword={setPassword} logIn={logIn} setAuthPhase={setAuthPhase}></LoginForm>
+                        </div>
+                    </div>
+    }
+    else
+    {
+        whatToShow = <div className='login-container'>
+                        <div className="form-container">
+                            <SignUpForm setUsername={setUsername} setPassword={setPassword} setEmail={setEmail} setPhoneNumber={setPhoneNumber} signUp={signUp} setAuthPhase={setAuthPhase}></SignUpForm>                
+                        </div>
+                    </div>
+    }
+
 
     return (
         <>
-            <div className='login-container'>
-                <div className="form-container">
-                    {authPhase === 'login' ? 
-                        <LoginForm setUsername={setUsername} setPassword={setPassword} logIn={onClick} setAuthPhase={setAuthPhase}></LoginForm>
-                    :
-                        <SignUpForm setUsername={setUsername} setPassword={setPassword} setEmail={setEmail} setPhoneNumber={setPhoneNumber} logIn={onClick} setAuthPhase={setAuthPhase}></SignUpForm>
-                    }
-                </div>
-            </div>
+            {whatToShow}
         </>
     );
 }

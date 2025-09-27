@@ -13,3 +13,9 @@ export type Groupchat = {
     sentMessages: ChatMessage[],
     members?: User[]
 }
+
+export type AllUsersContextType = {
+  allUsers: string[] | null;
+  fetchAllUsers: () => void;
+  newGroupChatCreated: (name: string, users: string[]) => void
+};

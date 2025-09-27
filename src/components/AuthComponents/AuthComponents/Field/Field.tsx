@@ -3,7 +3,7 @@ import "./Field.css";
 type FieldProps = 
 {
     fieldName: string,
-    setField: (value: string) => void
+    setField: (value: string) => void 
 }
 
 function Field(props: FieldProps)
@@ -23,12 +23,7 @@ function Field(props: FieldProps)
             whatToShow = <input type="text" placeholder="This field is optional." onChange={e => props.setField(e.target.value)}required/>;
             break;
         case "Members":
-             whatToShow = <select>
-                            <option value="user1">User 1</option>
-                            <option value="user2">User 2</option>
-                            <option value="user3">User 3</option>
-                            <option value="user4">User 4</option>
-                          </select>
+             whatToShow = <></>
              break;
         default:
             whatToShow = <input type="text" onChange={e => props.setField(e.target.value)}required/>;

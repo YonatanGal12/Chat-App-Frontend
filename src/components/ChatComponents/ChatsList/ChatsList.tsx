@@ -1,7 +1,7 @@
 import './ChatsList.css';
 import ChatItem from '../ChatItem/ChatItem';
 import CreateGC from '../CreateGC/CreateGC';
-import { type Groupchat } from '../../../types/types';
+import { type Groupchat } from '../../../types/chatTypes';
 
 type ChatsListProps = {
     groupchats: Groupchat[]

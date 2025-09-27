@@ -1,5 +1,5 @@
 import './SignUpForm.css';
-import { type AuthPhase } from '../../../../types';
+import { type AuthPhase } from '../../../../types/authTypes';
 import Field from '../../AuthComponents/Field/Field';
 
 type SignUpFormProps = {
@@ -7,7 +7,7 @@ type SignUpFormProps = {
     setPassword: (password: string) => void,
     setEmail: (email: string) => void,
     setPhoneNumber: (phoneNumber: string) => void,
-    logIn: () => void,
+    signUp: () => void,
     setAuthPhase: (phase: AuthPhase) => void,
 }
 
@@ -20,7 +20,7 @@ function SignUpForm(props: SignUpFormProps)
             <Field fieldName='Password' setField={props.setPassword}></Field>
             <Field fieldName='Email' setField={props.setEmail}></Field>
             <Field fieldName='Phone Number' setField={props.setPhoneNumber}></Field>
-            <button className='sign-up-btn' onClick={props.logIn}>Sign Up</button>
+            <button className='sign-up-btn' onClick={props.signUp}>Sign Up</button>
             <button className='go-to-login-btn' onClick={() => props.setAuthPhase('login')}>Forgot you have an account and feel stupid? Log in!</button>
         </>
     );

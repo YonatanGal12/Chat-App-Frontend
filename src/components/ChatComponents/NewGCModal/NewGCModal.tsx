@@ -1,22 +1,37 @@
 import './NewGCModal.css';
 import Field from '../../AuthComponents/AuthComponents/Field/Field';
-import { useState } from 'react';
+import { useState, useContext, useEffect } from 'react';
+import { AllUsersContext } from '../ChatContainer/ChatContainer';
 
 function NewGCModal()
 {
+    const allUsersContext = useContext(AllUsersContext);
     const [gcName, setGCName] = useState(' ');
     const [isShowing, setIsShowing] = useState(true);
-    const [gcMembers, setGCMembers] = useState(' ');
+    const [gcMembers, setGCMembers] = useState<string[]>([]);
+
+    useEffect(() => {
+        allUsersContext?.fetchAllUsers();
+    },[])
+
+    function handleToggleUser(username: string) {
+        setGCMembers(prev =>prev.includes(username) ? prev.filter(u => u !== username) : [...prev, username]);
+    }
+
     return(
         <>
             <div className="newGC-modal-container">
                 <div className="newGC-modal">
-                    <Field fieldName='New group chat name' setField={setGCName}></Field>
-                    <Field fieldName='Members' setField={setGCMembers}></Field>
+                    <Field fieldName='New GroupChat name' setField={setGCName}></Field>
+                    <div className="label-container">
+                        <label>Members</label>
+                    </div>                    
                     <div className="all-users-container">
-                        
+                        {allUsersContext?.allUsers?.map((u, i) => {
+                            return <div key={i} className={`user-item ${gcMembers.includes(u) ? 'selected' : ''}`} onClick={() => handleToggleUser(u)}>{u}</div>
+                        })}
                     </div>
-                    <button className='createNewGC-btn'>Create Groupchat</button>
+                    <button className='createNewGC-btn' onClick={() => allUsersContext?.newGroupChatCreated(gcName,gcMembers)}>Create Groupchat</button>
                 </div>
             </div>
         </>
