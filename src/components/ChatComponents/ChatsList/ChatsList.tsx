@@ -1,21 +1,37 @@
 import './ChatsList.css';
 import ChatItem from '../ChatItem/ChatItem';
 import CreateGC from '../CreateGC/CreateGC';
-import { type Groupchat } from '../../../types/chatTypes';
+import { useContext, useState } from 'react';
+import { AllUsersContext } from '../ChatContainer/ChatContainer';
 
-type ChatsListProps = {
-    groupchats: Groupchat[]
-}
-
-function ChatsList(props: ChatsListProps)
+function ChatsList()
 {
+
+    const allUsersContext = useContext(AllUsersContext);
+    const chats = allUsersContext?.groupchats;
+    const getAllMessagesFromGroupchat = allUsersContext?.getAllMessagesFromGroupchat;
+
+    const [selectedChat, setSelectedChat] = useState<string | null>(null);
+
+    function handleSelectChat(chatName: string) {
+        setSelectedChat(chatName);
+        getAllMessagesFromGroupchat?.(chatName);
+    }
+
+
+    let whatToShow;
+    chats ? whatToShow = <div className='chats-list-container'>
+                            {chats.map((chat) => {
+                                return <ChatItem key={chat.chatName} chatName={chat.chatName} isSelected={chat.chatName === selectedChat} onSelect={handleSelectChat}></ChatItem>
+                            })}
+                        </div>
+                        :
+                        <div className='chats-list-container'></div>
+
+
     return(
         <div className='chats-options-container'>
-            <div className='chats-list-container'>
-                {props.groupchats.map((chat) => {
-                    return <ChatItem key={chat.groupchatName} chatName={chat.groupchatName}></ChatItem>
-                })}
-            </div>
+            {whatToShow}
             <CreateGC></CreateGC>
         </div>
     )

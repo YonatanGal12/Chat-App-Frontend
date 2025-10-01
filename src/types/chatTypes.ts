@@ -1,6 +1,4 @@
-export type User = {
-    username: string,
-}
+
 
 export type ChatMessage = {
     content: string,
@@ -9,13 +7,15 @@ export type ChatMessage = {
 }
 
 export type Groupchat = {
-    groupchatName: string,
-    sentMessages: ChatMessage[],
-    members?: User[]
+    chatName: string,
+    sentMessages?: ChatMessage[],
+    members: string[]
 }
 
 export type AllUsersContextType = {
   allUsers: string[] | null;
   fetchAllUsers: () => void;
-  newGroupChatCreated: (name: string, users: string[]) => void
+  newGroupChatCreated: (name: string, users: string[]) => void,
+  groupchats: Groupchat[],
+  getAllMessagesFromGroupchat: (chatName: string) => void
 };

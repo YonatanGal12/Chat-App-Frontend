@@ -3,7 +3,11 @@ import Field from '../../AuthComponents/AuthComponents/Field/Field';
 import { useState, useContext, useEffect } from 'react';
 import { AllUsersContext } from '../ChatContainer/ChatContainer';
 
-function NewGCModal()
+type NewGCModalProps = {
+    setWasClicked: (data: boolean) => void
+}
+
+function NewGCModal({setWasClicked}: NewGCModalProps)
 {
     const allUsersContext = useContext(AllUsersContext);
     const [gcName, setGCName] = useState(' ');
@@ -31,7 +35,7 @@ function NewGCModal()
                             return <div key={i} className={`user-item ${gcMembers.includes(u) ? 'selected' : ''}`} onClick={() => handleToggleUser(u)}>{u}</div>
                         })}
                     </div>
-                    <button className='createNewGC-btn' onClick={() => allUsersContext?.newGroupChatCreated(gcName,gcMembers)}>Create Groupchat</button>
+                    <button className='createNewGC-btn' onClick={() => { setWasClicked(false); allUsersContext?.newGroupChatCreated(gcName,gcMembers)}}>Create Groupchat</button>
                 </div>
             </div>
         </>

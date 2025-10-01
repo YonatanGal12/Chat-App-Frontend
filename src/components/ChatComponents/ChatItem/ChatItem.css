@@ -14,3 +14,7 @@
     justify-content: left;
     align-items: center;
 }
+
+.selected{
+    background-color: var(--main-color);
+}

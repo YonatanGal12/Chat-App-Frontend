@@ -31,9 +31,11 @@ function AuthForm()
             headers: {
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify(body) 
+            body: JSON.stringify(body),
+            credentials: "include"
         });
 
+        console.log("asddd");
         if (!res.ok) {
             console.log("Error logging in.");
             return;
@@ -41,6 +43,7 @@ function AuthForm()
 
         const data = await res.json();
         sessionStorage.setItem("accessToken", data.accessToken);
+        sessionStorage.setItem("refreshToken", data.refreshToken)
         setAuthPhase("loggedIn");
     }
 
@@ -63,7 +66,8 @@ function AuthForm()
             headers: {
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify(body)
+            body: JSON.stringify(body),
+            credentials: "include"
         });
 
         if(!res.ok)
@@ -99,7 +103,7 @@ function AuthForm()
 
     let whatToShow;
 
-    if(authPhase === "loggedIn")
+    if(authPhase === "loggedIn" || sessionStorage.getItem('accessToken') !== null)
     {
         whatToShow = <ChatContainer/> 
     }

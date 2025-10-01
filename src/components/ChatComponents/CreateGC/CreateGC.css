@@ -22,3 +22,13 @@
     font-weight: bolder;
     opacity: 100%;
 }
+
+.clicked{
+    background-color: rgb(249, 46, 84);
+}
+
+.clicked:hover{
+    background-color: rgb(232, 28, 65);
+}
+
+

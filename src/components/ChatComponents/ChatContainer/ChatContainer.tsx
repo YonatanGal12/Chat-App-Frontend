@@ -20,13 +20,14 @@ function ChatContainer()
         setGroupchats,
         allUsers,
         fetchAllUsers,
-        newGroupChatCreated
+        newGroupChatCreated,
+        getAllMessagesFromGroupchat
     } = useSocket();
 
     return(
         <div className='chat-container'>
-            <AllUsersContext.Provider value={{allUsers, fetchAllUsers, newGroupChatCreated}}>
-                <ChatsList groupchats={groupchats}></ChatsList>
+            <AllUsersContext.Provider value={{allUsers, fetchAllUsers, newGroupChatCreated, groupchats, getAllMessagesFromGroupchat}}>
+                <ChatsList></ChatsList>
             </AllUsersContext.Provider>
             <HandleSendMessageContext.Provider value={handleSendMessage}>
                 <ChatBox></ChatBox>
