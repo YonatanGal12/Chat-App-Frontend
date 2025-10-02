@@ -5,6 +5,9 @@ import { type ChatMessage, type Groupchat} from "../types/chatTypes";
 export function useSocket()
 {
     const socket = useRef<SocketIOClient.Socket | null>(null);
+    const userRef = useRef<string | null>(null);
+    const currentChatNameRef = useRef<string | null>(null);
+
 
     const [user, setUser] = useState<string | null>(null);
     const [messages, setMessages] = useState<ChatMessage[] | []>([]);
@@ -52,12 +55,19 @@ export function useSocket()
         });
 
         function handleGetUsername(data: string){
-            console.log("The user is: " + data);
+            console.log("The user is: " + data)
+            setUser(data);
+            userRef.current = data;
         }
         s.on("getUsername",handleGetUsername);
 
-        function handleReceiveMessage(data: Omit<ChatMessage, 'isMine'>){
-            console.log(data);
+        function handleReceiveMessage(data: { username: string; messages: Omit<ChatMessage, "isMine">[] }){
+            console.log(userRef.current);
+
+            setMessages(data.messages.map(msg => ({
+                ...msg,
+                isMine: msg.sender === userRef.current
+            })));
         }
         s.on("recieveMessage", handleReceiveMessage)
 
@@ -69,7 +79,6 @@ export function useSocket()
 
 
         function handleGetAllGroupchats(data: Groupchat[]){
-            console.log("asdaaazxcxcvsdoiffjsf");
             setGroupchats(data);
         }
         s.on("userGroupchats", handleGetAllGroupchats);
@@ -89,8 +98,7 @@ export function useSocket()
             s.emit("getUserGroupChats"); 
         }
         s.on('authError', handleAuthError)
-
-
+ 
         socket.current = s;
 
     }
@@ -118,12 +126,15 @@ export function useSocket()
     }   
 
     function newGroupChatCreated(name: string, users: string[]){
+        console.log("name: " + name)
         socket.current?.emit("newGCCreated",{ name, users });
     }
 
     function getAllMessagesFromGroupchat(chatName: string)
     {
-        socket.current?.emit("getAllMessagesFromChat", chatName);
+        currentChatNameRef.current = chatName;
+        setMessages([]); 
+        socket.current?.emit("getAllMessagesFromChat", {chatName: chatName});
     }
 
 

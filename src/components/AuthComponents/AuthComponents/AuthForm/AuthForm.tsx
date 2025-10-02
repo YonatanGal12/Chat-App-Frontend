@@ -77,26 +77,8 @@ function AuthForm()
         }
 
         const data = await res.json();
-        const userName = data.userName;
-        const userId = data.userId;
         sessionStorage.setItem("accessToken", data.accessToken);
         setAuthPhase("loggedIn");
-    }
-
-    async function refresh()
-    {
-        const res = await fetch("http://localhost:3000/auth/refresh", {
-            credentials: "include"
-        })
-
-        if (!res.ok) {
-            console.log("Error refreshing token");
-            return;
-        }
-
-        const data = await res.json();
-        sessionStorage.setItem("accessToken", data.accessToken);
-        console.log("Access token refreshed:", data.accessToken);
     }
 
 

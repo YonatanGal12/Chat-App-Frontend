@@ -1,11 +1,11 @@
 import { useState, useContext } from 'react';
 import './SendMessageBox.css';
-import { HandleSendMessageContext } from '../ChatContainer/ChatContainer';
+import { ChatContext } from '../ChatContainer/ChatContainer';
 
 function SendMessageBox()
 {
 
-    const handleSendMessage = useContext(HandleSendMessageContext);
+    const handleSendMessage = useContext(ChatContext)?.handleSendMessage;
 
     const [message, setMessage] = useState("");
     const isTyping = message.length > 0;

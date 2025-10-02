@@ -3,10 +3,10 @@ import ChatsList from '../ChatsList/ChatsList';
 import ChatBox from '../ChatBox/ChatBox';
 import { useSocket } from '../../../hooks/useSocket';
 import { createContext } from 'react';
-import { type ChatMessage, type AllUsersContextType } from '../../../types/chatTypes';
+import { type ChatMessage, type AllUsersContextType, type ChatContextType } from '../../../types/chatTypes';
 
 
-export const HandleSendMessageContext = createContext< ((data: Omit<ChatMessage, "isMine">) => void) | undefined>(undefined);
+export const ChatContext = createContext<ChatContextType | null>(null);
 
 export const AllUsersContext = createContext<AllUsersContextType | null>(null)
 
@@ -29,9 +29,9 @@ function ChatContainer()
             <AllUsersContext.Provider value={{allUsers, fetchAllUsers, newGroupChatCreated, groupchats, getAllMessagesFromGroupchat}}>
                 <ChatsList></ChatsList>
             </AllUsersContext.Provider>
-            <HandleSendMessageContext.Provider value={handleSendMessage}>
+            <ChatContext.Provider value={{handleSendMessage, messages}}>
                 <ChatBox></ChatBox>
-            </HandleSendMessageContext.Provider>
+            </ChatContext.Provider>
         </div>
     )
 }

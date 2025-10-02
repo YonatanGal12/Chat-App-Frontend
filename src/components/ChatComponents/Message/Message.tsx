@@ -2,9 +2,8 @@ import './Message.css';
 
 type MessageProps = {
     content: string,
-    isSeen: boolean,
     senderName: string,
-    isMine?: true
+    isMine?: boolean
 }
 function Message(props: MessageProps)
 {

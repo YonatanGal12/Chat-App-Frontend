@@ -22,11 +22,19 @@ function NewGCModal({setWasClicked}: NewGCModalProps)
         setGCMembers(prev =>prev.includes(username) ? prev.filter(u => u !== username) : [...prev, username]);
     }
 
+    function handleClicked(){
+
+        console.log("hereeee");
+        setWasClicked(false);
+        allUsersContext?.newGroupChatCreated(gcName,gcMembers);
+
+    }
+
     return(
         <>
             <div className="newGC-modal-container">
                 <div className="newGC-modal">
-                    <Field fieldName='New GroupChat name' setField={setGCName}></Field>
+                    <Field fieldName='New Chat name' setField={setGCName}></Field>
                     <div className="label-container">
                         <label>Members</label>
                     </div>                    
@@ -35,7 +43,7 @@ function NewGCModal({setWasClicked}: NewGCModalProps)
                             return <div key={i} className={`user-item ${gcMembers.includes(u) ? 'selected' : ''}`} onClick={() => handleToggleUser(u)}>{u}</div>
                         })}
                     </div>
-                    <button className='createNewGC-btn' onClick={() => { setWasClicked(false); allUsersContext?.newGroupChatCreated(gcName,gcMembers)}}>Create Groupchat</button>
+                    <button className='createNewGC-btn' onClick={() => handleClicked() }>Create Groupchat</button>
                 </div>
             </div>
         </>

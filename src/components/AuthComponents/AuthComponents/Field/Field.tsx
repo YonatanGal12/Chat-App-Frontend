@@ -13,7 +13,7 @@ function Field(props: FieldProps)
     switch(props.fieldName)
     {
         case "Username":
-        case "New group chat name":
+        case "New Chat name":
             whatToShow = <input type="text" placeholder="This field must be unique." onChange={e => props.setField(e.target.value)}required/>;
             break;
         case "Password":
