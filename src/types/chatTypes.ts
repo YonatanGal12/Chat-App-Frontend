@@ -1,8 +1,10 @@
 
 
 export type ChatMessage = {
+    id?: number,
     content: string,
     sender: string,
+    sentAt?: string,
     isMine?: boolean
 }
 
@@ -17,7 +19,10 @@ export type AllUsersContextType = {
     fetchAllUsers: () => void;
     newGroupChatCreated: (name: string, users: string[]) => void,
     groupchats: Groupchat[],
-    getAllMessagesFromGroupchat: (chatName: string) => void
+    getAllMessagesFromGroupchat: (chatName: string) => void,
+    username: string | null,
+    notifications: string[],
+    handleLogout: () => void
 };
 
 export type ChatContextType = {

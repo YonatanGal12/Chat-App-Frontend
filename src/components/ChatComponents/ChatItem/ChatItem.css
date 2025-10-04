@@ -11,10 +11,33 @@
 
 .chat-details-container{
     display: flex;
-    justify-content: left;
     align-items: center;
+    gap: 20px;
+    width: 100%;
 }
+
 
 .selected{
     background-color: var(--main-color);
+}
+
+.chat-name{
+    width: fit-content;
+    max-width: 50%;
+    white-space: normal;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
+
+.notification-div{
+    width: 35px;
+    height: 35px;
+
+    border-radius: 50%;
+
+    background-color: rgb(249, 46, 84);
+
+    background-image: url('/images/exclamation-mark.svg');
+    background-size: cover;
+    background-repeat: no-repeat;
 }

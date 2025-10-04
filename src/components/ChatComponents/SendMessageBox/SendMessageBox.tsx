@@ -23,7 +23,7 @@ function SendMessageBox()
         setMessage('');
     }
 
-    let buttonToShow = <button className={isTyping? 'send-message-btn' : 'disabled-message-btn'} onClick={onSendMessage} disabled={!isTyping}></button>;
+    let buttonToShow = <button className={isTyping ? 'send-message-btn' : 'disabled-message-btn'} onClick={onSendMessage} disabled={!isTyping}></button>;
 
     return(
         <>

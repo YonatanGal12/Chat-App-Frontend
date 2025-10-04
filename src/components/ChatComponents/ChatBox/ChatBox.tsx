@@ -8,13 +8,13 @@ function ChatBox()
 {
 
     const messages = useContext(ChatContext)?.messages;
-    console.log(messages);
+
     return(
         <div className="chatbox-container">
             <div className="messages-container">
                 <div className="snap-to-bottom">
                     {messages?.map((msg) => {
-                        return <Message key={`${msg.sender}-${msg.content}`} content={msg.content} senderName={msg.sender} isMine={msg.isMine}></Message>
+                        return <Message key={`${msg.sender}-${msg.sentAt}`} content={msg.content} senderName={msg.sender} sentAt={msg.sentAt} isMine={msg.isMine}></Message>
                     })}
                 </div>
             </div>

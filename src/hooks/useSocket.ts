@@ -12,10 +12,12 @@ export function useSocket()
     const [user, setUser] = useState<string | null>(null);
     const [messages, setMessages] = useState<ChatMessage[] | []>([]);
     const [groupchats, setGroupchats] = useState<Groupchat[] | []>([]);
+    const [notifications, setNotifications] = useState<string[]>([])
     const [allUsers, setAllUsers] = useState<string[]>([]);
 
     async function refreshAccessToken() {
         try {
+            
             const res = await fetch("http://localhost:3000/auth/refresh", {
                 credentials: "include",
                 method: "PUT",
@@ -89,7 +91,7 @@ export function useSocket()
         s.on("allMessagesForChat",handleGetAllMessagesForChat);
 
 
-        async function handleAuthError(){
+        async function handleAuthError(data: {message: string}){
             const newToken = await refreshAccessToken();
             if(!newToken){
                 return;
@@ -98,11 +100,26 @@ export function useSocket()
             s.emit("getUserGroupChats"); 
         }
         s.on('authError', handleAuthError)
+
+        function handleNotification(data: string){
+            setNotifications(prev => {
+                if(prev.includes(data)) return prev;
+
+                const updated = [...prev, data];
+                sessionStorage.setItem("notifications", JSON.stringify(updated));
+
+                return updated;
+            })
+        }
+        s.on('notification', handleNotification)
  
         socket.current = s;
-
     }
 
+    useEffect(() => {
+        const saved = sessionStorage.getItem("notifications");
+        if (saved) setNotifications(JSON.parse(saved));
+    }, []);
     
     useEffect(() => {
         const token = sessionStorage.getItem("accessToken");
@@ -134,9 +151,22 @@ export function useSocket()
     {
         currentChatNameRef.current = chatName;
         setMessages([]); 
+        setNotifications(prev => {
+            const updated = prev.filter(name => name !== chatName);
+            sessionStorage.setItem("notifications",JSON.stringify(updated));
+            return updated;
+        })
         socket.current?.emit("getAllMessagesFromChat", {chatName: chatName});
     }
 
+    function handleLogout()
+    {
+        sessionStorage.clear();
+
+        socket.current?.removeAllListeners();
+        socket.current?.disconnect();
+    }
+ 
 
     return {
         handleSendMessage,
@@ -147,6 +177,9 @@ export function useSocket()
         allUsers,
         fetchAllUsers,
         newGroupChatCreated,
-        getAllMessagesFromGroupchat
+        getAllMessagesFromGroupchat,
+        username: userRef.current,
+        notifications,
+        handleLogout
     }
 }
