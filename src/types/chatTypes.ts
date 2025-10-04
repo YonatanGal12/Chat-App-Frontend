@@ -27,5 +27,6 @@ export type AllUsersContextType = {
 
 export type ChatContextType = {
     handleSendMessage: (data: Omit<ChatMessage, "isMine">) => void,
-    messages: ChatMessage[]
+    messages: ChatMessage[],
+    currentChat: string | null
 }

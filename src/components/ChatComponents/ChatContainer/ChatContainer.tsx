@@ -25,7 +25,8 @@ function ChatContainer()
         getAllMessagesFromGroupchat,
         username,
         notifications,
-        handleLogout
+        handleLogout,
+        currentChat
     } = useSocket();
 
     const [isLoggedOut, setIsLoggedOut] = useState(false);
@@ -44,7 +45,7 @@ function ChatContainer()
             <AllUsersContext.Provider value={{allUsers, fetchAllUsers, newGroupChatCreated, groupchats, getAllMessagesFromGroupchat, username, notifications, handleLogout: logout}}>
                 <ChatsList></ChatsList>
             </AllUsersContext.Provider>
-            <ChatContext.Provider value={{handleSendMessage, messages}}>
+            <ChatContext.Provider value={{handleSendMessage, messages, currentChat}}>
                 <ChatBox></ChatBox>
             </ChatContext.Provider>
         </div>

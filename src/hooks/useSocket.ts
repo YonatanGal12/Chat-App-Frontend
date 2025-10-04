@@ -180,6 +180,7 @@ export function useSocket()
         getAllMessagesFromGroupchat,
         username: userRef.current,
         notifications,
-        handleLogout
+        handleLogout,
+        currentChat: currentChatNameRef.current
     }
 }

@@ -8,6 +8,7 @@ function ChatBox()
 {
 
     const messages = useContext(ChatContext)?.messages;
+    const currentChat = useContext(ChatContext)?.currentChat;
 
     return(
         <div className="chatbox-container">
@@ -18,7 +19,7 @@ function ChatBox()
                     })}
                 </div>
             </div>
-            <SendMessageBox></SendMessageBox>
+            {currentChat === null ? <></> : <SendMessageBox></SendMessageBox>}
         </div>
     )
 }
